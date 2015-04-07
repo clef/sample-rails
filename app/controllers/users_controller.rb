@@ -1,5 +1,8 @@
+require 'securerandom'
+
 class UsersController < ApplicationController
   before_filter :check_user, only: [:new]
+  helper_method :state_parameter
   # GET /users
   # GET /users.json
   def index
@@ -41,7 +44,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    p request.env['omniauth.auth']
     @user = User.find_or_create_from_auth_hash(request.env['omniauth.auth'])
 
     respond_to do |format|
@@ -95,6 +97,10 @@ class UsersController < ApplicationController
   end
 
   protected
+
+    def state_parameter
+      session['omniauth.state'] = SecureRandom.hex(24)
+    end
 
     def check_user
       if session[:user]
