@@ -12,5 +12,8 @@
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %> |
-<%= link_to 'Logout', logout_users_path %>
+<%= link_to 'Back', users_path %> 
+<%- if session[:user] %>
+|
+	<%= link_to 'Logout', logout_users_path %>
+<%- end %>

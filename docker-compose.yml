@@ -1,0 +1,9 @@
+web:
+  build: .
+  volumes:
+    - .:/app
+  env_file:
+    - .env-vars
+  ports:
+    - 4400:3000
+  command: ["bundle", "exec", "rails s"]
